@@ -10,14 +10,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { MobileCard } from "@/components/mobile/MobileCard";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -892,64 +885,32 @@ const Tarbiwi = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>{tb.programs.table.title}</TableHead>
-                      <TableHead>{tb.programs.table.day}</TableHead>
-                      <TableHead>{tb.programs.table.time}</TableHead>
-                      <TableHead>{tb.programs.table.duration}</TableHead>
-                      <TableHead>{tb.programs.table.targetAge}</TableHead>
-                      <TableHead>{tb.programs.table.status}</TableHead>
-                      <TableHead>{tb.programs.table.actions}</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {programs.map((program) => (
-                      <TableRow key={program.id}>
-                        <TableCell className="font-medium">
-                          {program.title}
-                        </TableCell>
-                        <TableCell>{getDayName(program.dayOfWeek)}</TableCell>
-                        <TableCell>{program.time}</TableCell>
-                        <TableCell>{program.duration} {tb.programs.minuteUnit}</TableCell>
-                        <TableCell>{program.targetAge}</TableCell>
-                        <TableCell>
-                          <Badge
-                            className={
-                              program.isActive
-                                ? "bg-green-100 text-green-800"
-                                : "bg-red-100 text-red-800"
-                            }
-                          >
-                            {program.isActive ? tb.programs.status.active : tb.programs.status.inactive}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex space-x-2 space-x-reverse">
-                            <Button variant="outline" size="sm">
-                              {tb.programs.actions.view}
-                            </Button>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() => openEditProgramDialog(program)}
-                            >
-                              {tb.programs.actions.edit}
-                            </Button>
-                            <Button
-                              variant="destructive"
-                              size="sm"
-                              onClick={() => openDeleteProgramDialog(program)}
-                            >
-                              {tb.programs.actions.delete}
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                <div className="space-y-3">
+                  {programs.map((program) => (
+                    <MobileCard
+                      key={program.id}
+                      name={program.title}
+                      subtitle={`${getDayName(program.dayOfWeek)} · ${program.time} · ${program.duration} ${tb.programs.minuteUnit}`}
+                      badge={program.targetAge}
+                      statusBadge={
+                        <Badge
+                          className={
+                            program.isActive
+                              ? "bg-green-100 text-green-800"
+                              : "bg-red-100 text-red-800"
+                          }
+                        >
+                          {program.isActive ? tb.programs.status.active : tb.programs.status.inactive}
+                        </Badge>
+                      }
+                      actions={[
+                        { label: tb.programs.actions.view, onClick: () => {} },
+                        { label: tb.programs.actions.edit, onClick: () => openEditProgramDialog(program) },
+                        { label: tb.programs.actions.delete, onClick: () => openDeleteProgramDialog(program), variant: "destructive" },
+                      ]}
+                    />
+                  ))}
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
@@ -963,76 +924,36 @@ const Tarbiwi = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>{tb.assignments.table.title}</TableHead>
-                      <TableHead>{tb.assignments.table.type}</TableHead>
-                      <TableHead>{tb.assignments.table.dueDate}</TableHead>
-                      <TableHead>{tb.assignments.table.targetAge}</TableHead>
-                      <TableHead>{tb.assignments.table.points}</TableHead>
-                      <TableHead>{tb.assignments.table.status}</TableHead>
-                      <TableHead>{tb.assignments.table.actions}</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {assignments.map((assignment) => (
-                      <TableRow key={assignment.id}>
-                        <TableCell className="font-medium">
-                          {assignment.title}
-                        </TableCell>
-                        <TableCell>
-                          <Badge
-                            className={getAssignmentTypeColor(assignment.type)}
-                          >
-                            {assignmentTypeLabels[assignment.type] ?? assignment.type}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          {formatDate(new Date(assignment.dueDate), language)}
-                        </TableCell>
-                        <TableCell>{assignment.targetAge}</TableCell>
-                        <TableCell>{assignment.points}</TableCell>
-                        <TableCell>
-                          <Badge
-                            className={
-                              assignment.isActive
-                                ? "bg-green-100 text-green-800"
-                                : "bg-red-100 text-red-800"
-                            }
-                          >
-                            {assignment.isActive ? tb.assignments.status.active : tb.assignments.status.inactive}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex space-x-2 space-x-reverse">
-                            <Button variant="outline" size="sm">
-                              {tb.assignments.actions.view}
-                            </Button>
-                            <Button
-                              variant="outline"
-                              size="sm"
-                              onClick={() =>
-                                openEditAssignmentDialog(assignment)
-                              }
-                            >
-                              {tb.assignments.actions.edit}
-                            </Button>
-                            <Button
-                              variant="destructive"
-                              size="sm"
-                              onClick={() =>
-                                openDeleteAssignmentDialog(assignment)
-                              }
-                            >
-                              {tb.assignments.actions.delete}
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                <div className="space-y-4">
+                  {assignments.map((assignment) => (
+                    <MobileCard
+                      key={assignment.id}
+                      name={assignment.title}
+                      subtitle={`${formatDate(new Date(assignment.dueDate), language)} · ${assignment.targetAge}`}
+                      badge={String(assignment.points)}
+                      statusBadge={
+                        <Badge
+                          className={
+                            assignment.isActive
+                              ? "bg-green-100 text-green-800"
+                              : "bg-red-100 text-red-800"
+                          }
+                        >
+                          {assignment.isActive ? tb.assignments.status.active : tb.assignments.status.inactive}
+                        </Badge>
+                      }
+                      actions={[
+                        { label: tb.assignments.actions.view, onClick: () => {} },
+                        { label: tb.assignments.actions.edit, onClick: () => openEditAssignmentDialog(assignment) },
+                        { label: tb.assignments.actions.delete, onClick: () => openDeleteAssignmentDialog(assignment), variant: "destructive" },
+                      ]}
+                    >
+                      <Badge className={getAssignmentTypeColor(assignment.type)}>
+                        {assignmentTypeLabels[assignment.type] ?? assignment.type}
+                      </Badge>
+                    </MobileCard>
+                  ))}
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
@@ -1160,59 +1081,30 @@ const Tarbiwi = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>{tb.assessments.table.student}</TableHead>
-                      <TableHead>{tb.assessments.table.criteria}</TableHead>
-                      <TableHead>{tb.assessments.table.rating}</TableHead>
-                      <TableHead>{tb.assessments.table.date}</TableHead>
-                      <TableHead>{tb.assessments.table.evaluator}</TableHead>
-                      <TableHead>{tb.assessments.table.notes}</TableHead>
-                      <TableHead>{tb.assessments.table.actions}</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {assessments.map((assessment) => (
-                      <TableRow key={assessment.id}>
-                        <TableCell>
-                          {
-                            students[
-                              assessment.studentId as keyof typeof students
-                            ]
-                          }
-                        </TableCell>
-                        <TableCell>{assessment.criteria}</TableCell>
-                        <TableCell>
-                          <Badge className={getRatingColor(assessment.rating)}>
-                            {assessment.rating}/10
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          {formatDate(new Date(assessment.date), language)}
-                        </TableCell>
-                        <TableCell>
-                          {
-                            teachers[
-                              assessment.evaluatedBy as keyof typeof teachers
-                            ]
-                          }
-                        </TableCell>
-                        <TableCell>{assessment.notes}</TableCell>
-                        <TableCell>
-                          <div className="flex space-x-2 space-x-reverse">
-                            <Button variant="outline" size="sm">
-                              {tb.assessments.actions.edit}
-                            </Button>
-                            <Button variant="destructive" size="sm">
-                              {tb.assessments.actions.delete}
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                <div className="space-y-4">
+                  {assessments.map((assessment) => (
+                    <MobileCard
+                      key={assessment.id}
+                      name={students[assessment.studentId as keyof typeof students]}
+                      subtitle={`${assessment.criteria} · ${formatDate(new Date(assessment.date), language)}`}
+                      badge={`${assessment.rating}/10`}
+                      badgeClassName={getRatingColor(assessment.rating)}
+                      statusBadge={
+                        <span className="text-sm text-muted-foreground">
+                          {teachers[assessment.evaluatedBy as keyof typeof teachers]}
+                        </span>
+                      }
+                      actions={[
+                        { label: tb.assessments.actions.edit, onClick: () => {} },
+                        { label: tb.assessments.actions.delete, onClick: () => {}, variant: "destructive" },
+                      ]}
+                    >
+                      {assessment.notes && (
+                        <p className="text-sm text-muted-foreground">{assessment.notes}</p>
+                      )}
+                    </MobileCard>
+                  ))}
+                </div>
               </CardContent>
             </Card>
           </TabsContent>

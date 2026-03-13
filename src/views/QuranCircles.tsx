@@ -10,14 +10,6 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -670,7 +662,7 @@ const QuranCircles = () => {
               </CardHeader>
               <CardContent>
                 {/* Mobile Card View */}
-                <div className="block md:hidden space-y-4">
+                <div className="space-y-4">
                   {circles.map((circle) => (
                     <div key={circle.id} className="p-4 border rounded-lg space-y-3">
                       <div className="flex items-start justify-between gap-2">
@@ -726,77 +718,8 @@ const QuranCircles = () => {
                   ))}
                 </div>
 
-                {/* Desktop Table View */}
-                <div className="hidden md:block overflow-x-auto">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>{qc.tableHeaders.circleName}</TableHead>
-                        <TableHead>{qc.tableHeaders.supervisor}</TableHead>
-                        <TableHead className="hidden lg:table-cell">{qc.tableHeaders.dailyMemorization}</TableHead>
-                        <TableHead className="hidden lg:table-cell">{qc.tableHeaders.dailyRevision}</TableHead>
-                        <TableHead>{qc.tableHeaders.memberCount}</TableHead>
-                        <TableHead>{qc.tableHeaders.status}</TableHead>
-                        <TableHead>{qc.tableHeaders.actions}</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {circles.map((circle) => (
-                        <TableRow key={circle.id}>
-                          <TableCell className="font-medium max-w-[150px] truncate">
-                            {circle.name}
-                          </TableCell>
-                          <TableCell>
-                            {
-                              teachers[
-                                circle.supervisorId as keyof typeof teachers
-                              ]
-                            }
-                          </TableCell>
-                          <TableCell className="hidden lg:table-cell">{circle.dailyMemorization}</TableCell>
-                          <TableCell className="hidden lg:table-cell">{circle.dailyRevision}</TableCell>
-                          <TableCell>
-                            {getCircleMembers(circle.id).length}
-                          </TableCell>
-                          <TableCell>
-                            <Badge
-                              className={
-                                circle.isActive
-                                  ? "bg-green-100 text-green-800"
-                                  : "bg-red-100 text-red-800"
-                              }
-                            >
-                              {circle.isActive ? qc.status.active : qc.status.inactive}
-                            </Badge>
-                          </TableCell>
-                          <TableCell>
-                            <div className="flex gap-1">
-                              <Button variant="outline" size="sm" className="text-xs px-2">
-                                {qc.actions.view}
-                              </Button>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="text-xs px-2"
-                                onClick={() => openEditCircleDialog(circle)}
-                              >
-                                {qc.actions.edit}
-                              </Button>
-                              <Button
-                                variant="destructive"
-                                size="sm"
-                                className="text-xs px-2"
-                                onClick={() => openDeleteCircleDialog(circle)}
-                              >
-                                {qc.actions.delete}
-                              </Button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
+                {/* Desktop Table View removed — mobile card view below is always shown */}
+
               </CardContent>
             </Card>
           </TabsContent>
@@ -1073,7 +996,7 @@ const QuranCircles = () => {
               </CardHeader>
               <CardContent>
                 {/* Mobile Card View */}
-                <div className="block md:hidden space-y-4">
+                <div className="space-y-4">
                   {memorizationRecords.map((record) => (
                     <div key={record.id} className="p-4 border rounded-lg space-y-3">
                       <div className="flex items-start justify-between gap-2">
@@ -1112,68 +1035,7 @@ const QuranCircles = () => {
                   ))}
                 </div>
 
-                {/* Desktop Table View */}
-                <div className="hidden md:block overflow-x-auto">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>{qc.tableHeaders.student}</TableHead>
-                        <TableHead className="hidden lg:table-cell">{qc.tableHeaders.circle}</TableHead>
-                        <TableHead>{qc.tableHeaders.surah}</TableHead>
-                        <TableHead>{qc.tableHeaders.verses}</TableHead>
-                        <TableHead>{qc.tableHeaders.type}</TableHead>
-                        <TableHead>{qc.tableHeaders.evaluation}</TableHead>
-                        <TableHead className="hidden lg:table-cell">{qc.tableHeaders.date}</TableHead>
-                        <TableHead>{qc.tableHeaders.actions}</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {memorizationRecords.map((record) => (
-                        <TableRow key={record.id}>
-                          <TableCell className="max-w-[120px] truncate">
-                            {students[record.studentId as keyof typeof students]}
-                          </TableCell>
-                          <TableCell className="hidden lg:table-cell max-w-[120px] truncate">
-                            {circles.find((c) => c.id === record.circleId)?.name}
-                          </TableCell>
-                          <TableCell>{record.surahName}</TableCell>
-                          <TableCell>
-                            {record.versesFrom} - {record.versesTo}
-                          </TableCell>
-                          <TableCell>
-                            <Badge
-                              className={getMemorizationTypeColor(
-                                record.memorizationType
-                              )}
-                            >
-                              {memorizationTypeLabel[record.memorizationType] ?? record.memorizationType}
-                            </Badge>
-                          </TableCell>
-                          <TableCell>
-                            <Badge
-                              className={getEvaluationColor(record.evaluation)}
-                            >
-                              {record.evaluation}/10
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="hidden lg:table-cell">
-                            {formatDate(record.date, language)}
-                          </TableCell>
-                          <TableCell>
-                            <div className="flex gap-1">
-                              <Button variant="outline" size="sm" className="text-xs px-2">
-                                {qc.actions.edit}
-                              </Button>
-                              <Button variant="destructive" size="sm" className="text-xs px-2">
-                                {qc.actions.delete}
-                              </Button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
+
               </CardContent>
             </Card>
           </TabsContent>

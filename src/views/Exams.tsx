@@ -10,14 +10,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { MobileCard } from "@/components/mobile/MobileCard";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -776,62 +769,26 @@ const Exams = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>{t.exams.table.examTitle}</TableHead>
-                        <TableHead>{t.exams.table.date}</TableHead>
-                        <TableHead>{t.exams.table.duration}</TableHead>
-                        <TableHead>{t.exams.table.totalMarks}</TableHead>
-                        <TableHead>{t.exams.table.status}</TableHead>
-                        <TableHead>{t.exams.table.actions}</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {filteredExams.map((exam) => (
-                        <TableRow key={exam.id}>
-                          <TableCell className="font-medium">
-                            {exam.title}
-                          </TableCell>
-                          <TableCell>
-                            {formatDate(exam.date, language)}
-                          </TableCell>
-                          <TableCell>{exam.duration} {t.exams.cards.minute}</TableCell>
-                          <TableCell>{exam.totalMarks}</TableCell>
-                          <TableCell>
-                            <Badge className={getExamStatusColor(exam)}>
-                              {getExamStatusText(exam)}
-                            </Badge>
-                          </TableCell>
-                          <TableCell>
-                            <div className="flex space-x-2 space-x-reverse">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => openResultDialog(exam.id)}
-                              >
-                                {t.exams.actions.addResult}
-                              </Button>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => openEditDialog(exam)}
-                              >
-                                {t.exams.actions.edit}
-                              </Button>
-                              <Button
-                                variant="destructive"
-                                size="sm"
-                                onClick={() => openDeleteDialog(exam)}
-                              >
-                                {t.exams.actions.delete}
-                              </Button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                  <div className="space-y-3">
+                    {filteredExams.map((exam) => (
+                      <MobileCard
+                        key={exam.id}
+                        name={exam.title}
+                        subtitle={`${formatDate(exam.date, language)} · ${exam.duration} ${t.exams.cards.minute}`}
+                        badge={String(exam.totalMarks)}
+                        statusBadge={
+                          <Badge className={getExamStatusColor(exam)}>
+                            {getExamStatusText(exam)}
+                          </Badge>
+                        }
+                        actions={[
+                          { label: t.exams.actions.addResult, onClick: () => openResultDialog(exam.id) },
+                          { label: t.exams.actions.edit, onClick: () => openEditDialog(exam) },
+                          { label: t.exams.actions.delete, onClick: () => openDeleteDialog(exam), variant: "destructive" },
+                        ]}
+                      />
+                    ))}
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -928,62 +885,26 @@ const Exams = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>{t.exams.table.examTitle}</TableHead>
-                        <TableHead>{t.exams.table.date}</TableHead>
-                        <TableHead>{t.exams.table.duration}</TableHead>
-                        <TableHead>{t.exams.table.totalMarks}</TableHead>
-                        <TableHead>{t.exams.table.status}</TableHead>
-                        <TableHead>{t.exams.table.actions}</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {filteredExams.map((exam) => (
-                        <TableRow key={exam.id}>
-                          <TableCell className="font-medium">
-                            {exam.title}
-                          </TableCell>
-                          <TableCell>
-                            {formatDate(exam.date, language)}
-                          </TableCell>
-                          <TableCell>{exam.duration} {t.exams.cards.minute}</TableCell>
-                          <TableCell>{exam.totalMarks}</TableCell>
-                          <TableCell>
-                            <Badge className={getExamStatusColor(exam)}>
-                              {getExamStatusText(exam)}
-                            </Badge>
-                          </TableCell>
-                          <TableCell>
-                            <div className="flex space-x-2 space-x-reverse">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => openResultDialog(exam.id)}
-                              >
-                                {t.exams.actions.addResult}
-                              </Button>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => openEditDialog(exam)}
-                              >
-                                {t.exams.actions.edit}
-                              </Button>
-                              <Button
-                                variant="destructive"
-                                size="sm"
-                                onClick={() => openDeleteDialog(exam)}
-                              >
-                                {t.exams.actions.delete}
-                              </Button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                  <div className="space-y-3">
+                    {filteredExams.map((exam) => (
+                      <MobileCard
+                        key={exam.id}
+                        name={exam.title}
+                        subtitle={`${formatDate(exam.date, language)} · ${exam.duration} ${t.exams.cards.minute}`}
+                        badge={String(exam.totalMarks)}
+                        statusBadge={
+                          <Badge className={getExamStatusColor(exam)}>
+                            {getExamStatusText(exam)}
+                          </Badge>
+                        }
+                        actions={[
+                          { label: t.exams.actions.addResult, onClick: () => openResultDialog(exam.id) },
+                          { label: t.exams.actions.edit, onClick: () => openEditDialog(exam) },
+                          { label: t.exams.actions.delete, onClick: () => openDeleteDialog(exam), variant: "destructive" },
+                        ]}
+                      />
+                    ))}
+                  </div>
                 </CardContent>
               </Card>
             </div>
@@ -1080,62 +1001,26 @@ const Exams = () => {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>{t.exams.table.examTitle}</TableHead>
-                        <TableHead>{t.exams.table.date}</TableHead>
-                        <TableHead>{t.exams.table.duration}</TableHead>
-                        <TableHead>{t.exams.table.totalMarks}</TableHead>
-                        <TableHead>{t.exams.table.status}</TableHead>
-                        <TableHead>{t.exams.table.actions}</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {filteredExams.map((exam) => (
-                        <TableRow key={exam.id}>
-                          <TableCell className="font-medium">
-                            {exam.title}
-                          </TableCell>
-                          <TableCell>
-                            {formatDate(exam.date, language)}
-                          </TableCell>
-                          <TableCell>{exam.duration} {t.exams.cards.minute}</TableCell>
-                          <TableCell>{exam.totalMarks}</TableCell>
-                          <TableCell>
-                            <Badge className={getExamStatusColor(exam)}>
-                              {getExamStatusText(exam)}
-                            </Badge>
-                          </TableCell>
-                          <TableCell>
-                            <div className="flex space-x-2 space-x-reverse">
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => openResultDialog(exam.id)}
-                              >
-                                {t.exams.actions.addResult}
-                              </Button>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                onClick={() => openEditDialog(exam)}
-                              >
-                                {t.exams.actions.edit}
-                              </Button>
-                              <Button
-                                variant="destructive"
-                                size="sm"
-                                onClick={() => openDeleteDialog(exam)}
-                              >
-                                {t.exams.actions.delete}
-                              </Button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
+                  <div className="space-y-3">
+                    {filteredExams.map((exam) => (
+                      <MobileCard
+                        key={exam.id}
+                        name={exam.title}
+                        subtitle={`${formatDate(exam.date, language)} · ${exam.duration} ${t.exams.cards.minute}`}
+                        badge={String(exam.totalMarks)}
+                        statusBadge={
+                          <Badge className={getExamStatusColor(exam)}>
+                            {getExamStatusText(exam)}
+                          </Badge>
+                        }
+                        actions={[
+                          { label: t.exams.actions.addResult, onClick: () => openResultDialog(exam.id) },
+                          { label: t.exams.actions.edit, onClick: () => openEditDialog(exam) },
+                          { label: t.exams.actions.delete, onClick: () => openDeleteDialog(exam), variant: "destructive" },
+                        ]}
+                      />
+                    ))}
+                  </div>
                 </CardContent>
               </Card>
             </div>

@@ -10,14 +10,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -531,8 +524,7 @@ const Announcements = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {/* Mobile Card View */}
-                <div className="block md:hidden space-y-4">
+                <div className="space-y-4">
                   {announcements.map((announcement) => (
                     <div key={announcement.id} className="p-4 border rounded-lg space-y-3">
                       <div className="flex items-start justify-between gap-2">
@@ -585,85 +577,6 @@ const Announcements = () => {
                   ))}
                 </div>
 
-                {/* Desktop Table View */}
-                <div className="hidden md:block overflow-x-auto">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>{t.announcements.table.title}</TableHead>
-                        <TableHead>{t.announcements.table.type}</TableHead>
-                        <TableHead className="hidden lg:table-cell">{t.announcements.table.targetAudience}</TableHead>
-                        <TableHead>{t.announcements.table.status}</TableHead>
-                        <TableHead className="hidden lg:table-cell">{t.announcements.table.createdAt}</TableHead>
-                        <TableHead>{t.announcements.table.actions}</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {announcements.map((announcement) => (
-                        <TableRow key={announcement.id}>
-                          <TableCell className="font-medium max-w-[200px] truncate">
-                            {announcement.title}
-                          </TableCell>
-                          <TableCell>
-                            <Badge className={getTypeColor(announcement.type)}>
-                              {getTypeLabel(announcement.type)}
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="hidden lg:table-cell">
-                            <div className="flex flex-wrap gap-1">
-                              {announcement.targetAudience.map((role) => (
-                                <Badge
-                                  key={role}
-                                  variant="outline"
-                                  className="text-xs"
-                                >
-                                  {getRoleName(role)}
-                                </Badge>
-                              ))}
-                            </div>
-                          </TableCell>
-                          <TableCell>
-                            <Badge
-                              className={
-                                announcement.isActive
-                                  ? "bg-green-100 text-green-800"
-                                  : "bg-red-100 text-red-800"
-                              }
-                            >
-                              {announcement.isActive ? t.announcements.status.active : t.announcements.status.inactive}
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="hidden lg:table-cell">
-                            {formatDate(announcement.createdAt, language)}
-                          </TableCell>
-                          <TableCell>
-                            <div className="flex gap-1">
-                              <Button variant="outline" size="sm" className="text-xs px-2">
-                                {t.common.view}
-                              </Button>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="text-xs px-2"
-                                onClick={() => openEditDialog(announcement)}
-                              >
-                                {t.common.edit}
-                              </Button>
-                              <Button
-                                variant="destructive"
-                                size="sm"
-                                className="text-xs px-2"
-                                onClick={() => openDeleteDialog(announcement)}
-                              >
-                                {t.common.delete}
-                              </Button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
               </CardContent>
             </Card>
           </TabsContent>

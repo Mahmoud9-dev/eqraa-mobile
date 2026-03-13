@@ -10,14 +10,6 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
@@ -653,8 +645,7 @@ const Library = () => {
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                {/* Mobile Card View */}
-                <div className="block md:hidden space-y-4">
+                <div className="space-y-4">
                   {filteredResources.map((resource) => (
                     <div key={resource.id} className="p-4 border rounded-lg space-y-3">
                       <div className="flex items-start justify-between gap-2">
@@ -696,66 +687,6 @@ const Library = () => {
                   ))}
                 </div>
 
-                {/* Desktop Table View */}
-                <div className="hidden md:block overflow-x-auto">
-                  <Table>
-                    <TableHeader>
-                      <TableRow>
-                        <TableHead>{t.library.table.title}</TableHead>
-                        <TableHead className="hidden lg:table-cell">{t.library.table.author}</TableHead>
-                        <TableHead>{t.library.table.type}</TableHead>
-                        <TableHead className="hidden lg:table-cell">{t.library.table.category}</TableHead>
-                        <TableHead className="hidden lg:table-cell">{t.library.table.addedDate}</TableHead>
-                        <TableHead>{t.library.table.actions}</TableHead>
-                      </TableRow>
-                    </TableHeader>
-                    <TableBody>
-                      {filteredResources.map((resource) => (
-                        <TableRow key={resource.id}>
-                          <TableCell className="font-medium max-w-[200px]">
-                            <div className="flex items-center gap-2">
-                              <span className="shrink-0">{getTypeIcon(resource.type)}</span>
-                              <span className="truncate">{resource.title}</span>
-                            </div>
-                          </TableCell>
-                          <TableCell className="hidden lg:table-cell">{resource.author}</TableCell>
-                          <TableCell>
-                            <Badge className={getTypeColor(resource.type)}>
-                              {typeLabelMap[resource.type] || resource.type}
-                            </Badge>
-                          </TableCell>
-                          <TableCell className="hidden lg:table-cell">{categoryLabelMap[resource.category] || resource.category}</TableCell>
-                          <TableCell className="hidden lg:table-cell">
-                            {formatDate(resource.createdAt, languageMeta.code)}
-                          </TableCell>
-                          <TableCell>
-                            <div className="flex gap-1">
-                              <Button variant="outline" size="sm" className="text-xs px-2">
-                                {t.library.actions.view}
-                              </Button>
-                              <Button
-                                variant="outline"
-                                size="sm"
-                                className="text-xs px-2"
-                                onClick={() => openEditDialog(resource)}
-                              >
-                                {t.library.actions.edit}
-                              </Button>
-                              <Button
-                                variant="destructive"
-                                size="sm"
-                                className="text-xs px-2"
-                                onClick={() => openDeleteDialog(resource)}
-                              >
-                                {t.library.actions.delete}
-                              </Button>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))}
-                    </TableBody>
-                  </Table>
-                </div>
               </CardContent>
             </Card>
           </TabsContent>

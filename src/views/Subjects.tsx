@@ -10,14 +10,7 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table";
+import { MobileCard } from "@/components/mobile/MobileCard";
 import {
   Dialog,
   DialogContent,
@@ -856,79 +849,50 @@ const Subjects = () => {
                       <CardDescription>{t.subjects.sections.assignmentsDescription}</CardDescription>
                     </CardHeader>
                     <CardContent>
-                      <Table>
-                        <TableHeader>
-                          <TableRow>
-                            <TableHead>{t.subjects.table.title}</TableHead>
-                            <TableHead>{t.subjects.table.dueDate}</TableHead>
-                            <TableHead>{t.subjects.table.actions}</TableHead>
-                          </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                          {currentAssignments.map((assignment) => (
-                            <TableRow key={assignment.id}>
-                              <TableCell className="font-medium">
-                                {assignment.title}
-                              </TableCell>
-                              <TableCell>
-                                {formatDate(assignment.dueDate, language)}
-                              </TableCell>
-                              <TableCell>
-                                <div className="flex space-x-2 space-x-reverse">
-                                  <Button
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={() => {
-                                      toast({
-                                        title: t.subjects.toast.viewAssignment,
-                                        description: t.subjects.toast.viewAssignmentDescription,
-                                      });
-                                    }}
-                                  >
-                                    {t.subjects.actions.view}
-                                  </Button>
-                                  <Button
-                                    variant="outline"
-                                    size="sm"
-                                    onClick={() => {
-                                      toast({
-                                        title: t.subjects.toast.editAssignment,
-                                        description:
-                                          t.subjects.toast.editAssignmentDescription,
-                                      });
-                                    }}
-                                  >
-                                    {t.subjects.actions.edit}
-                                  </Button>
-                                  <Button
-                                    variant="destructive"
-                                    size="sm"
-                                    onClick={() => {
-                                      toast({
-                                        title: t.subjects.toast.deleteAssignment,
-                                        description:
-                                          t.subjects.toast.deleteAssignmentDescription,
-                                      });
-                                      setAssignments(
-                                        assignments.filter(
-                                          (a) => a.id !== assignment.id
-                                        )
-                                      );
-                                      toast({
-                                        title: t.subjects.toast.deleteAssignmentSuccess,
-                                        description:
-                                          t.subjects.toast.deleteAssignmentSuccessDescription,
-                                      });
-                                    }}
-                                  >
-                                    {t.subjects.actions.delete}
-                                  </Button>
-                                </div>
-                              </TableCell>
-                            </TableRow>
-                          ))}
-                        </TableBody>
-                      </Table>
+                      <div className="space-y-3">
+                        {currentAssignments.map((assignment) => (
+                          <MobileCard
+                            key={assignment.id}
+                            name={assignment.title}
+                            subtitle={formatDate(assignment.dueDate, language)}
+                            actions={[
+                              {
+                                label: t.subjects.actions.view,
+                                onClick: () => {
+                                  toast({
+                                    title: t.subjects.toast.viewAssignment,
+                                    description: t.subjects.toast.viewAssignmentDescription,
+                                  });
+                                },
+                              },
+                              {
+                                label: t.subjects.actions.edit,
+                                onClick: () => {
+                                  toast({
+                                    title: t.subjects.toast.editAssignment,
+                                    description: t.subjects.toast.editAssignmentDescription,
+                                  });
+                                },
+                              },
+                              {
+                                label: t.subjects.actions.delete,
+                                variant: "destructive",
+                                onClick: () => {
+                                  toast({
+                                    title: t.subjects.toast.deleteAssignment,
+                                    description: t.subjects.toast.deleteAssignmentDescription,
+                                  });
+                                  setAssignments(assignments.filter((a) => a.id !== assignment.id));
+                                  toast({
+                                    title: t.subjects.toast.deleteAssignmentSuccess,
+                                    description: t.subjects.toast.deleteAssignmentSuccessDescription,
+                                  });
+                                },
+                              },
+                            ]}
+                          />
+                        ))}
+                      </div>
                     </CardContent>
                   </Card>
                 </div>
