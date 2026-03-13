@@ -1,0 +1,33 @@
+{
+  "$schema": "https://raw.githubusercontent.com/nicegoodthings/tauri/main/crates/tauri-utils/schema.json",
+  "identifier": "default",
+  "description": "Capability for desktop fallback (dev/preview only)",
+  "platforms": ["linux", "windows", "macOS"],
+  "windows": ["main"],
+  "permissions": [
+    "sql:default",
+    "sql:allow-load",
+    "sql:allow-execute",
+    "sql:allow-select",
+    "sql:allow-close",
+    "core:path:default",
+    "dialog:default",
+    "dialog:allow-open",
+    "dialog:allow-save",
+    "fs:default",
+    "fs:allow-read-file",
+    "fs:allow-write-file",
+    "fs:allow-write-text-file",
+    "fs:allow-exists",
+    "fs:allow-copy-file",
+    {
+      "identifier": "fs:scope",
+      "allow": [
+        "$DOWNLOAD/**",
+        "$DOCUMENT/**",
+        "$DESKTOP/**",
+        "$APPDATA/**"
+      ]
+    }
+  ]
+}

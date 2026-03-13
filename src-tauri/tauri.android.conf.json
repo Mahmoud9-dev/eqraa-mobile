@@ -1,0 +1,9 @@
+{
+  "productName": "Eqraa",
+  "bundle": {
+    "android": {
+      "minSdkVersion": 26,
+      "versionCode": 1
+    }
+  }
+}
