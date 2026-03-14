@@ -31,7 +31,13 @@ const NotFound = lazy(() => import("@/views/NotFound"));
 export function AppRouter() {
   return (
     <MobileLayout>
-      <Suspense fallback={null}>
+      <Suspense
+        fallback={
+          <div className="flex h-full w-full items-center justify-center bg-background">
+            <div className="h-8 w-8 animate-spin rounded-full border-4 border-muted border-t-primary" />
+          </div>
+        }
+      >
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/admin" element={<Admin />} />
