@@ -1,4 +1,4 @@
-import PageHeader from "@/components/PageHeader";
+import { MobileHeader } from "@/layouts/MobileHeader";
 import { useState, useEffect } from "react";
 import { getMeetings, addMeeting, updateMeetingStatus, deleteMeeting as deleteMeetingRepo } from "@/lib/database/repositories/meetings";
 import { useToast } from "@/hooks/use-toast";
@@ -140,7 +140,7 @@ const Meetings = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageHeader title={t.meetings.pageTitle} />
+      <MobileHeader title={t.meetings.pageTitle} />
       <main className="container mx-auto px-4 py-6 sm:py-8 md:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 md:gap-8 mb-6 sm:mb-8">
           <Card className="border-primary/20">

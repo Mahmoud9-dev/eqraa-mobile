@@ -28,7 +28,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import PageHeader from "@/components/PageHeader";
+import { MobileHeader } from "@/layouts/MobileHeader";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { formatDate } from "@/lib/i18n";
 
@@ -423,7 +423,7 @@ const Schedule = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageHeader title={t.schedule.pageTitle} showBack={true} />
+      <MobileHeader title={t.schedule.pageTitle} showBack={true} />
 
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">

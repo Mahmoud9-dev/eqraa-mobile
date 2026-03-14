@@ -33,7 +33,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { formatDate } from "@/lib/i18n";
-import PageHeader from "@/components/PageHeader";
+import { MobileHeader } from "@/layouts/MobileHeader";
 import { QuranCircle, CircleMember, MemorizationRecord } from "@/types";
 
 const QuranCircles = () => {
@@ -428,7 +428,7 @@ const QuranCircles = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageHeader title={qc.pageTitle} showBack={true} />
+      <MobileHeader title={qc.pageTitle} showBack={true} />
 
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">

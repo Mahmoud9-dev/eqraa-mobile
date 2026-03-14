@@ -1,4 +1,4 @@
-import PageHeader from "@/components/PageHeader";
+import { MobileHeader } from "@/layouts/MobileHeader";
 import { useState, useEffect } from "react";
 import { getSuggestions, addSuggestion, updateSuggestionStatus } from "@/lib/database/repositories/suggestions";
 import { useToast } from "@/hooks/use-toast";
@@ -81,7 +81,7 @@ const Suggestions = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageHeader title={t.suggestions.pageTitle} />
+      <MobileHeader title={t.suggestions.pageTitle} />
       <main className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <Card className="border-primary/20">

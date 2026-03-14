@@ -1,5 +1,5 @@
 
-import PageHeader from "@/components/PageHeader";
+import { MobileHeader } from "@/layouts/MobileHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -173,7 +173,7 @@ const EducationalStudentActivities = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageHeader title={sp.pageTitle} showBack={true} />
+      <MobileHeader title={sp.pageTitle} showBack={true} />
 
       <main className="container mx-auto px-4 py-6 sm:py-8 md:py-12">
         <div className="mb-6 sm:mb-8 flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">

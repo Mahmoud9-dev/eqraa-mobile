@@ -1,5 +1,5 @@
 
-import PageHeader from "@/components/PageHeader";
+import { MobileHeader } from "@/layouts/MobileHeader";
 import { useState, useEffect } from "react";
 import { getStudentsByDept, addStudent } from "@/lib/database/repositories/students";
 import { getTeachersByDept } from "@/lib/database/repositories/teachers";
@@ -9,13 +9,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 import IconButton from "@/components/IconButton";
 import { BookOpen, HandHeart, Target, Star, Users, Lightbulb } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
@@ -146,7 +139,7 @@ const Educational = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageHeader title={ed.pageTitle} />
+      <MobileHeader title={ed.pageTitle} />
       <main className="container mx-auto px-4 py-6 sm:py-8 md:py-12">
         <div className="mb-6 sm:mb-8 bg-gradient-to-r from-primary to-primary/80 text-primary-foreground p-4 sm:p-6 md:p-8 rounded-xl sm:rounded-2xl shadow-[var(--shadow-soft)]">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-2 sm:mb-3">

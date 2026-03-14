@@ -31,7 +31,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import PageHeader from "@/components/PageHeader";
+import { MobileHeader } from "@/layouts/MobileHeader";
 import { Department, Teacher } from "@/types";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { MobileCard } from "@/components/mobile/MobileCard";
@@ -295,7 +295,7 @@ const Teachers = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageHeader title={t.teachers.pageTitle} showBack={true} />
+      <MobileHeader title={t.teachers.pageTitle} showBack={true} />
 
       <main className="container mx-auto px-4 py-6 sm:py-8">
         <div className="mb-6 sm:mb-8">

@@ -1,4 +1,4 @@
-import PageHeader from "@/components/PageHeader";
+import { MobileHeader } from "@/layouts/MobileHeader";
 import { useState, useEffect } from "react";
 import { getTajweedLessons, addTajweedLesson, type TajweedLesson } from "@/lib/database/repositories/tajweed";
 import { useToast } from "@/hooks/use-toast";
@@ -50,7 +50,7 @@ const Tajweed = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageHeader title={t.tajweed.pageTitle} />
+      <MobileHeader title={t.tajweed.pageTitle} />
       <main className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-8">
           <Card className="border-primary/20">

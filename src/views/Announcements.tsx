@@ -32,7 +32,7 @@ import {
 } from "@/components/ui/dialog";
 import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
-import PageHeader from "@/components/PageHeader";
+import { MobileHeader } from "@/layouts/MobileHeader";
 import { Announcement, NotificationType, UserRole } from "@/types";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { formatDate, formatDateTime } from "@/lib/i18n";
@@ -320,7 +320,7 @@ const Announcements = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageHeader title={t.announcements.pageTitle} showBack={true} />
+      <MobileHeader title={t.announcements.pageTitle} showBack={true} />
 
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">

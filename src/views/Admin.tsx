@@ -1,5 +1,5 @@
 
-import PageHeader from "@/components/PageHeader";
+import { MobileHeader } from "@/layouts/MobileHeader";
 import { useState, useEffect } from "react";
 import { getTeachers, addTeacher, type Teacher } from "@/lib/database/repositories/teachers";
 import { getStudents, type Student } from "@/lib/database/repositories/students";
@@ -111,7 +111,7 @@ const Admin = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageHeader title={t.admin.pageTitle} />
+      <MobileHeader title={t.admin.pageTitle} />
       <main className="container mx-auto px-4 py-12">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-6 mb-8">
           <Card className="bg-gradient-to-br from-primary to-primary/80 text-primary-foreground">

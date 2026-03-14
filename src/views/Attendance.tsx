@@ -1,6 +1,6 @@
 
 import { useState, useEffect, useCallback } from "react";
-import PageHeader from "@/components/PageHeader";
+import { MobileHeader } from "@/layouts/MobileHeader";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -433,7 +433,7 @@ const Attendance = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
-        <PageHeader title={t.attendance.pageTitle} showBack={true} />
+        <MobileHeader title={t.attendance.pageTitle} showBack={true} />
         <main className="container mx-auto px-4 py-8">
           <div className="flex items-center justify-center min-h-[400px]">
             <div className="text-center">
@@ -448,7 +448,7 @@ const Attendance = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageHeader title={t.attendance.pageTitle} showBack={true} />
+      <MobileHeader title={t.attendance.pageTitle} showBack={true} />
 
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">

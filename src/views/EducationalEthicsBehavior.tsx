@@ -1,5 +1,5 @@
 
-import PageHeader from "@/components/PageHeader";
+import { MobileHeader } from "@/layouts/MobileHeader";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -146,7 +146,7 @@ const EducationalEthicsBehavior = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageHeader title={sp.pageTitle} showBack={true} />
+      <MobileHeader title={sp.pageTitle} showBack={true} />
 
       <main className="container mx-auto px-4 py-12">
         <div className="mb-8 flex justify-between items-center">
@@ -158,7 +158,7 @@ const EducationalEthicsBehavior = () => {
           </div>
           <Dialog open={isAddDialogOpen} onOpenChange={setIsAddDialogOpen}>
             <DialogTrigger asChild>
-              <Button className="bg-primary text-primary-foreground mr-4">
+              <Button className="bg-primary text-primary-foreground me-4">
                 {sp.addButton}
               </Button>
             </DialogTrigger>

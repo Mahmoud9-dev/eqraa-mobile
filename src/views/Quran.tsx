@@ -1,5 +1,5 @@
 
-import PageHeader from "@/components/PageHeader";
+import { MobileHeader } from "@/layouts/MobileHeader";
 import { useState, useEffect } from "react";
 import { getStudentsByDept, addStudent } from "@/lib/database/repositories/students";
 import { getTeachersByDept, addTeacher } from "@/lib/database/repositories/teachers";
@@ -309,7 +309,7 @@ const Quran = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageHeader title={t.quran.pageTitle} />
+      <MobileHeader title={t.quran.pageTitle} />
       <main className="container mx-auto px-4 py-12">
         <div className="flex flex-wrap items-center justify-end gap-2 mb-4">
           <Button variant="outline" size="sm" onClick={handleExportCSV} disabled={isExporting}>

@@ -30,7 +30,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
-import PageHeader from "@/components/PageHeader";
+import { MobileHeader } from "@/layouts/MobileHeader";
 import { LibraryResource, ResourceType } from "@/types";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { formatDate } from "@/lib/i18n";
@@ -540,7 +540,7 @@ const Library = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageHeader title={t.library.pageTitle} showBack={true} />
+      <MobileHeader title={t.library.pageTitle} showBack={true} />
 
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">

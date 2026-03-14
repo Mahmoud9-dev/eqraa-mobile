@@ -18,7 +18,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import PageHeader from "@/components/PageHeader";
+import { MobileHeader } from "@/layouts/MobileHeader";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { exportDatabase, importDatabase } from "@/lib/database/backup";
 import { seedDemoData, clearDemoData } from "@/lib/database/seed";
@@ -125,7 +125,7 @@ const Settings = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageHeader title={t.settings.pageTitle} showBack={true} />
+      <MobileHeader title={t.settings.pageTitle} showBack={true} />
 
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">

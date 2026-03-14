@@ -30,9 +30,8 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { useToast } from "@/hooks/use-toast";
-import PageHeader from "@/components/PageHeader";
+import { MobileHeader } from "@/layouts/MobileHeader";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { formatDate } from "@/lib/i18n";
 
@@ -570,7 +569,7 @@ const Tarbiwi = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageHeader title={tb.pageTitle} showBack={true} />
+      <MobileHeader title={tb.pageTitle} showBack={true} />
 
       <main className="container mx-auto px-4 py-8">
         <div className="mb-8">
