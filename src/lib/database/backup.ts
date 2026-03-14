@@ -3,6 +3,9 @@ import { copyFile, exists } from "@tauri-apps/plugin-fs";
 import { appDataDir, join } from "@tauri-apps/api/path";
 import { closeDb, getDb } from "./db";
 
+const isTauri = (): boolean =>
+  typeof window !== "undefined" && "__TAURI_INTERNALS__" in window;
+
 const DB_FILENAME = "eqraa.db";
 
 async function getDbPath(): Promise<string> {
@@ -11,6 +14,8 @@ async function getDbPath(): Promise<string> {
 }
 
 export async function exportDatabase(): Promise<boolean> {
+  if (!isTauri()) return false;
+
   const savePath = await save({
     title: "Export Database",
     defaultPath: `eqraa-backup-${new Date().toISOString().split("T")[0]}.db`,
@@ -25,6 +30,8 @@ export async function exportDatabase(): Promise<boolean> {
 }
 
 export async function importDatabase(): Promise<boolean> {
+  if (!isTauri()) return false;
+
   const filePath = await open({
     title: "Import Database",
     filters: [{ name: "SQLite Database", extensions: ["db"] }],
@@ -49,12 +56,11 @@ export async function importDatabase(): Promise<boolean> {
 }
 
 export async function getDatabaseSize(): Promise<string> {
+  if (!isTauri()) return "N/A";
+
   const dbPath = await getDbPath();
   const fileExists = await exists(dbPath);
   if (!fileExists) return "0 KB";
 
-  // We can't easily get file size with the fs plugin alone,
-  // so we return a placeholder. The actual size would need
-  // Tauri's stat API or a custom command.
   return "N/A";
 }

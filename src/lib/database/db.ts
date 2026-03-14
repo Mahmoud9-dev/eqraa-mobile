@@ -1,6 +1,14 @@
 import Database from "@tauri-apps/plugin-sql";
+import { BrowserDatabase } from "./browser-stub";
 
-let db: Database | null = null;
+/** True when running inside Tauri (native or WebView), false in a plain browser. */
+const isTauri = (): boolean =>
+  typeof window !== "undefined" &&
+  "__TAURI_INTERNALS__" in window;
+
+type AnyDatabase = Database | BrowserDatabase;
+
+let db: AnyDatabase | null = null;
 
 const SCHEMA = `
 PRAGMA journal_mode=WAL;
@@ -129,8 +137,13 @@ CREATE INDEX IF NOT EXISTS idx_attendance_teacher_id ON attendance_records(teach
 CREATE INDEX IF NOT EXISTS idx_attendance_date ON attendance_records(record_date);
 `;
 
-export async function getDb(): Promise<Database> {
+export async function getDb(): Promise<AnyDatabase> {
   if (db) return db;
+
+  if (!isTauri()) {
+    db = await BrowserDatabase.load("sqlite:eqraa.db");
+    return db;
+  }
 
   db = await Database.load("sqlite:eqraa.db");
 
