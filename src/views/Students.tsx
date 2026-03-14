@@ -18,7 +18,6 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   Dialog,
   DialogContent,
@@ -32,7 +31,7 @@ import { Label } from "@/components/ui/label";
 import { Download, FileText, Loader2 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import { useLanguage } from "@/contexts/LanguageContext";
-import PageHeader from "@/components/PageHeader";
+import { MobileHeader } from "@/layouts/MobileHeader";
 import { MobileCard } from "@/components/mobile/MobileCard";
 import { exportCSV } from "@/lib/export/csv";
 import { exportPDF } from "@/lib/export/pdf";
@@ -219,8 +218,8 @@ const Students = () => {
   const [isEditDialogOpen, setIsEditDialogOpen] = useState(false);
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isEditImagesDialogOpen, setIsEditImagesDialogOpen] = useState(false);
-  const [_isAddNoteDialogOpen, setIsAddNoteDialogOpen] = useState(false);
-  const [_isEditNoteDialogOpen, setIsEditNoteDialogOpen] = useState(false);
+  const [isAddNoteDialogOpen, setIsAddNoteDialogOpen] = useState(false);
+  const [isEditNoteDialogOpen, setIsEditNoteDialogOpen] = useState(false);
   const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
   const [selectedNote, setSelectedNote] = useState<StudentNote | null>(null);
   const [editingImageType, setEditingImageType] = useState<
@@ -230,7 +229,7 @@ const Students = () => {
     type: "إيجابي" as "إيجابي" | "سلبي",
     content: "",
     date: new Date().toISOString().split("T")[0],
-    teacher: "المعلم الحالي",
+    teacher: "",
   });
   const [newStudent, setNewStudent] = useState<StudentFormData>({
     name: "",
@@ -614,7 +613,7 @@ const Students = () => {
   };
 
   // Functions for notes operations
-  const _handleAddNote = async () => {
+  const handleAddNote = async () => {
     if (!selectedStudent || !newNote.content.trim()) {
       toast({
         title: t.students.toast.error,
@@ -640,7 +639,7 @@ const Students = () => {
         type: "إيجابي",
         content: "",
         date: new Date().toISOString().split("T")[0],
-        teacher: "المعلم الحالي",
+        teacher: t.students.notes.defaultTeacher,
       });
 
       setIsAddNoteDialogOpen(false);
@@ -658,7 +657,7 @@ const Students = () => {
     }
   };
 
-  const _handleEditNote = async () => {
+  const handleEditNote = async () => {
     if (!selectedStudent || !selectedNote || !newNote.content.trim()) {
       toast({
         title: t.students.toast.error,
@@ -683,7 +682,7 @@ const Students = () => {
         type: "إيجابي",
         content: "",
         date: new Date().toISOString().split("T")[0],
-        teacher: "المعلم الحالي",
+        teacher: t.students.notes.defaultTeacher,
       });
 
       setIsEditNoteDialogOpen(false);
@@ -729,7 +728,7 @@ const Students = () => {
       type: "إيجابي",
       content: "",
       date: new Date().toISOString().split("T")[0],
-      teacher: "المعلم الحالي",
+      teacher: t.students.notes.defaultTeacher,
     });
     setIsAddNoteDialogOpen(true);
   };
@@ -749,7 +748,7 @@ const Students = () => {
   if (isLoading) {
     return (
       <div className="min-h-screen bg-background">
-        <PageHeader title={t.students.pageTitle} showBack={true} />
+        <MobileHeader title={t.students.pageTitle} showBack={true} />
         <main className="container mx-auto px-4 py-6 sm:py-8">
           <div className="flex items-center justify-center min-h-[400px]">
             <div className="text-center">
@@ -764,7 +763,7 @@ const Students = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <PageHeader title={t.students.pageHeaderTitle} showBack={true} />
+      <MobileHeader title={t.students.pageHeaderTitle} showBack={true} />
 
       <main className="container mx-auto px-4 py-6 sm:py-8">
         <div className="mb-6 sm:mb-8">
@@ -1970,6 +1969,164 @@ const Students = () => {
               {t.students.actions.cancel}
             </Button>
             <Button onClick={handleEditImages} className="text-sm">
+              {t.students.actions.saveChanges}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Add Note Dialog */}
+      <Dialog open={isAddNoteDialogOpen} onOpenChange={setIsAddNoteDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>{t.students.actions.addNewNote}</DialogTitle>
+            <DialogDescription>
+              {selectedStudent?.name}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="note-type" className="text-right">
+                {t.students.notes.type}
+              </Label>
+              <Select
+                value={newNote.type}
+                onValueChange={(v) =>
+                  setNewNote({ ...newNote, type: v as "إيجابي" | "سلبي" })
+                }
+              >
+                <SelectTrigger className="col-span-3" id="note-type">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="إيجابي">{t.students.notes.positive}</SelectItem>
+                  <SelectItem value="سلبي">{t.students.notes.negative}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="note-content" className="text-right">
+                {t.students.notes.content}
+              </Label>
+              <Input
+                id="note-content"
+                value={newNote.content}
+                onChange={(e) => setNewNote({ ...newNote, content: e.target.value })}
+                className="col-span-3"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="note-date" className="text-right">
+                {t.students.notes.date}
+              </Label>
+              <Input
+                id="note-date"
+                type="date"
+                value={newNote.date}
+                onChange={(e) => setNewNote({ ...newNote, date: e.target.value })}
+                className="col-span-3"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="note-teacher" className="text-right">
+                {t.students.notes.teacher}
+              </Label>
+              <Input
+                id="note-teacher"
+                value={newNote.teacher}
+                onChange={(e) => setNewNote({ ...newNote, teacher: e.target.value })}
+                className="col-span-3"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setIsAddNoteDialogOpen(false)}
+              className="text-sm"
+            >
+              {t.students.actions.cancel}
+            </Button>
+            <Button onClick={handleAddNote} className="text-sm">
+              {t.students.actions.addNote}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Edit Note Dialog */}
+      <Dialog open={isEditNoteDialogOpen} onOpenChange={setIsEditNoteDialogOpen}>
+        <DialogContent className="sm:max-w-[425px]">
+          <DialogHeader>
+            <DialogTitle>{t.students.actions.editStudent}</DialogTitle>
+            <DialogDescription>
+              {selectedStudent?.name}
+            </DialogDescription>
+          </DialogHeader>
+          <div className="grid gap-4 py-4">
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="edit-note-type" className="text-right">
+                {t.students.notes.type}
+              </Label>
+              <Select
+                value={newNote.type}
+                onValueChange={(v) =>
+                  setNewNote({ ...newNote, type: v as "إيجابي" | "سلبي" })
+                }
+              >
+                <SelectTrigger className="col-span-3" id="edit-note-type">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="إيجابي">{t.students.notes.positive}</SelectItem>
+                  <SelectItem value="سلبي">{t.students.notes.negative}</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="edit-note-content" className="text-right">
+                {t.students.notes.content}
+              </Label>
+              <Input
+                id="edit-note-content"
+                value={newNote.content}
+                onChange={(e) => setNewNote({ ...newNote, content: e.target.value })}
+                className="col-span-3"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="edit-note-date" className="text-right">
+                {t.students.notes.date}
+              </Label>
+              <Input
+                id="edit-note-date"
+                type="date"
+                value={newNote.date}
+                onChange={(e) => setNewNote({ ...newNote, date: e.target.value })}
+                className="col-span-3"
+              />
+            </div>
+            <div className="grid grid-cols-4 items-center gap-4">
+              <Label htmlFor="edit-note-teacher" className="text-right">
+                {t.students.notes.teacher}
+              </Label>
+              <Input
+                id="edit-note-teacher"
+                value={newNote.teacher}
+                onChange={(e) => setNewNote({ ...newNote, teacher: e.target.value })}
+                className="col-span-3"
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <Button
+              variant="outline"
+              onClick={() => setIsEditNoteDialogOpen(false)}
+              className="text-sm"
+            >
+              {t.students.actions.cancel}
+            </Button>
+            <Button onClick={handleEditNote} className="text-sm">
               {t.students.actions.saveChanges}
             </Button>
           </DialogFooter>

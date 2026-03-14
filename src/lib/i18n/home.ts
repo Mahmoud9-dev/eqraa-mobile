@@ -5,6 +5,7 @@ export interface HomeTranslations {
   welcome: string;
   subtitle: string;
   footer: string;
+  moreLabel: string;
   stats: {
     totalStudents: string;
     attendanceToday: string;
@@ -20,6 +21,7 @@ export const home: Record<Language, HomeTranslations> = {
     welcome: 'مرحباً بك في إقراء',
     subtitle: 'اختر القسم المناسب للبدء',
     footer: 'جميع الحقوق محفوظة - إقراء',
+    moreLabel: 'المزيد',
     stats: {
       totalStudents: 'إجمالي الطلاب',
       attendanceToday: 'الحضور اليوم',
@@ -50,6 +52,7 @@ export const home: Record<Language, HomeTranslations> = {
     welcome: 'Welcome to Eqraa',
     subtitle: 'Choose a section to get started',
     footer: 'All rights reserved - Eqraa',
+    moreLabel: 'More',
     stats: {
       totalStudents: 'Total Students',
       attendanceToday: 'Attendance Today',

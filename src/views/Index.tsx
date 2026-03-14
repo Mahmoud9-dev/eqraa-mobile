@@ -20,7 +20,7 @@ import {
 } from 'lucide-react';
 import { LucideIcon } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
-import PageHeader from '@/components/PageHeader';
+import { MobileHeader } from '@/layouts/MobileHeader';
 import StatCard from '@/components/StatCard';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -64,8 +64,8 @@ const Index = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-background flex flex-col">
-      <PageHeader title={t.home.pageTitle} showBack={false} />
+    <div className="bg-background flex flex-col">
+      <MobileHeader title={t.home.pageTitle} showBack={false} />
 
       <main className="flex-grow container mx-auto px-4 py-4 max-w-2xl">
         {/* Welcome */}
@@ -178,7 +178,7 @@ const Index = () => {
         {/* Secondary sections list (bottom tabs cover Students/Quran/Meetings/Settings) */}
         <div className="mb-6">
           <h3 className="text-base font-semibold text-foreground mb-3">
-            {t.home.sections.moreLabel ?? "المزيد"}
+            {t.home.moreLabel}
           </h3>
           <div className="divide-y divide-border rounded-xl border border-border overflow-hidden bg-card">
             {secondarySections.map((section) => {

@@ -81,6 +81,7 @@ export interface StudentsTranslations {
     supervisorNotes: string;
     supervisorNotesDesc: string;
     noNotesForStudent: string;
+    defaultTeacher: string;
   };
   status: {
     active: string;
@@ -243,6 +244,7 @@ export const students: Record<Language, StudentsTranslations> = {
       supervisorNotes: 'ملاحظات المشرفين',
       supervisorNotesDesc: 'ملاحظات سلوكية وأدائية للطلاب',
       noNotesForStudent: 'لا توجد ملاحظات لهذا الطالب',
+      defaultTeacher: 'المعلم الحالي',
     },
     status: {
       active: 'نشط',
@@ -403,6 +405,7 @@ export const students: Record<Language, StudentsTranslations> = {
       supervisorNotes: 'Supervisor Notes',
       supervisorNotesDesc: 'Behavioral and performance notes for students',
       noNotesForStudent: 'No notes for this student',
+      defaultTeacher: 'Current Teacher',
     },
     status: {
       active: 'Active',
