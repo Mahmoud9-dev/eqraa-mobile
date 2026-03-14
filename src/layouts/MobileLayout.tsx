@@ -26,9 +26,11 @@ export function MobileLayout({ children }: MobileLayoutProps) {
   const navigate = useNavigate();
   const { t } = useLanguage();
 
-  // Determine which tab is active — match root "/" exactly, others by prefix
+  // Determine which tab is active — match root "/" exactly, "/quran" exactly,
+  // and all other tab paths by prefix.
   function isActive(path: string): boolean {
     if (path === "/") return location.pathname === "/";
+    if (path === "/quran") return location.pathname === "/quran";
     return location.pathname.startsWith(path);
   }
 
