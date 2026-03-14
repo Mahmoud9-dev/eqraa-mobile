@@ -46,7 +46,8 @@ All colors MUST be HSL.
 
     --gradient-primary: linear-gradient(
       135deg,
-      hsl(174 45% 32%) hsl(174 55% 42%)
+      hsl(174 45% 32%),
+      hsl(174 55% 42%)
     );
     --gradient-secondary: linear-gradient(
       135deg,
